@@ -1,5 +1,7 @@
 const express = require('express');
+const path = require('path'); // Thư viện xử lý đường dẫn file hệ thống
 const app = express();
+
 app.use(express.json());
 
 // MẢNG LƯU TRỮ HÓA ĐƠN CHƯA XỬ LÝ
@@ -7,9 +9,12 @@ let pendingDonations = [];
 
 const TY_LE_QUY_DOI = 0.001; // 1,000đ = 1 Xu
 
-// ĐOẠN COODE FIX LỖI "Cannot GET /"
+// ----------------------------------------------------------------------------
+// ĐÃ SỬA: ĐỌC VÀ HIỂN THỊ TRỰC TIẾP FILE INDEX.HTML RA TRANG CHỦ
+// ----------------------------------------------------------------------------
 app.get('/', (req, res) => {
-    res.send(`<h2 style="color: #2ecc71; text-align: center; margin-top: 50px;">★ PVEMC.VN - SePay Webhook Gateway đang hoạt động ổn định! ★</h2>`);
+    // Trả về file index.html nằm chung thư mục
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // 1. Endpoint tiếp nhận Webhook từ SePay
